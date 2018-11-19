@@ -1,0 +1,146 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+#menubar a:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #33ab9f;
+}
+
+#menubar {
+  visibility: hidden;
+}
+.signup-form {
+  margin-top: 30px;
+}
+/* ****************** */
+@media screen and (min-width: 450px) {
+  #iconnav {
+    visibility: hidden;
+  }
+  #menubar {
+    visibility: visible;
+  }
+}
+/* *********************** */
+.single-element {
+  text-align: left;
+  padding: 14px;
+}
+
+.single-element .checked {
+  position: relative;
+}
+
+.single-element .checked:before {
+  content: "";
+  position: absolute;
+  top: 65%;
+  left: 0;
+  right: 0;
+  height: 3px; /* ADJUST HEIGHT TO ADD WEIGHT */
+  background: #009688; /* CHANGE COLOR TO SUIT */
+}
+.single-element::after { 
+  content: "";
+  display: block; 
+  clear: both;
+}
+.single-element div:nth-child(-n + 2) {
+  float: left;
+}
+.single-element div:last-child {
+  float: right;
+}
+.single-element div:last-child span:first-child {
+  margin-right: 10px;
+}
+.el-icon {
+  cursor: pointer;
+}
+/* *************** */
+.el-description {
+  padding-top: 0.5em
+}
+
+.checkbox-edit {
+ padding: 0;
+  margin-right: 15px;
+}
+
+/****************** */
+
+.popup-container {
+  position: relative;
+  display: inline-block;
+}
+
+.popup-container .popup-message {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgb(5, 5, 5, 0.7);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.popup-container .popup-message::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color:  rgb(5, 5, 5, 0.7) transparent transparent transparent;
+}
+
+.popup-container:hover .popup-message {
+  visibility: visible;
+}
+/* ********************* */
+.modal-login {
+  box-shadow: #282c34;
+  background-color: beige;
+  padding: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+}
