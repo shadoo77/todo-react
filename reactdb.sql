@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 03, 2018 at 09:59 PM
--- Server version: 5.7.23
--- PHP Version: 7.2.10
+-- Gegenereerd op: 19 nov 2018 om 18:52
+-- Serverversie: 5.7.23
+-- PHP-versie: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hashes`
+-- Tabelstructuur voor tabel `hashes`
 --
 
 DROP TABLE IF EXISTS `hashes`;
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `hashes` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `hashes`
+-- Gegevens worden geëxporteerd voor tabel `hashes`
 --
 
 INSERT INTO `hashes` (`id`, `hash`) VALUES
@@ -51,37 +51,38 @@ INSERT INTO `hashes` (`id`, `hash`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `items`
+-- Tabelstructuur voor tabel `items`
 --
 
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) NOT NULL,
   `task` varchar(255) NOT NULL,
   `done` tinyint(1) NOT NULL,
   `user_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `items`
+-- Gegevens worden geëxporteerd voor tabel `items`
 --
 
 INSERT INTO `items` (`id`, `task`, `done`, `user_id`) VALUES
-(1, 'Going to huisarts dr. Tuna', 1, '215cbfd8-d3cc-4c0b-8fe4-24108b2737a1'),
-(2, 'Learning React js', 0, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d'),
-(3, 'Finishing the homework for this week', 0, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d'),
-(7, 'Welcome!', 1, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d'),
-(8, 'watching match between Netherlands and Germany', 0, '215cbfd8-d3cc-4c0b-8fe4-24108b2737a1'),
-(9, 'hoi shadoo', 0, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d'),
-(10, 'Let\'s try it Nour!', 0, '215cbfd8-d3cc-4c0b-8fe4-24108b2737a1');
+('1', 'Going to huisarts dr. Tuna', 0, '215cbfd8-d3cc-4c0b-8fe4-24108b2737a1'),
+('10', 'Let\'s try it Nour!', 1, '215cbfd8-d3cc-4c0b-8fe4-24108b2737a1'),
+('1893df66-8ec4-4d48-b16e-e411143d362b', 'And now', 0, '215cbfd8-d3cc-4c0b-8fe4-24108b2737a1'),
+('2', 'Learning React js', 1, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d'),
+('3', 'Finishing the homework for this week', 0, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d'),
+('693ec691-a54d-4bf2-a269-1d7ae39e08a5', 'watching match between Netherlands and Germany', 1, '215cbfd8-d3cc-4c0b-8fe4-24108b2737a1'),
+('7', 'Welcome!', 1, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d'),
+('9', 'hoi shadoo weer!', 1, '98fd9dc8-de43-4b6a-b64e-e65e1e41af6d');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Tabelstructuur voor tabel `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -100,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Gegevens worden geëxporteerd voor tabel `users`
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `pass_id`) VALUES
@@ -111,17 +112,17 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `pass_i
 ('f5015661-9358-4cc2-928a-6f2292f792e7', 'Piet', '123456', 'Peter', 'test@gmail.ney', 7);
 
 --
--- Constraints for dumped tables
+-- Beperkingen voor geëxporteerde tabellen
 --
 
 --
--- Constraints for table `items`
+-- Beperkingen voor tabel `items`
 --
 ALTER TABLE `items`
   ADD CONSTRAINT `fk_item_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `users`
+-- Beperkingen voor tabel `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_user_pass` FOREIGN KEY (`pass_id`) REFERENCES `hashes` (`id`);
