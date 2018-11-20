@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Modal } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Valid from '../validation/validate.js';
+import axios from 'axios';
+import history from '../../history';
 
 const initialInputs = {
     firstName: '',
@@ -15,7 +17,9 @@ const initialInputs = {
     password: '',
     passwordError: '',
     passwordConfirm: '',
-    passwordConfirmError: ''
+    passwordConfirmError: '',
+    isFound: 'hidden',
+    modalOpen: false
 };
 
 class SignUpForm extends Component {
@@ -28,6 +32,12 @@ class SignUpForm extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    turnWelcomMsg() {
+        setInterval(() => {
+            this.setState({isFound: 'hidden', modalOpen: true});
+        }, 500);
     }
 
     isValid = () => {
@@ -45,7 +55,36 @@ class SignUpForm extends Component {
         e.preventDefault();
         const isValid = this.isValid();
         if(isValid) {
+            const { firstName, lastName, userName, email, password } = this.state;
+            const userInfo = {firstName, lastName, userName, email, password};
+            axios.post('/api/signup', userInfo)
+                .then(res => {
+                    this.setState({isFound: 'hidden', modalOpen: true});
+                    //history.push('/login');
+                })
+                .catch(err => {
+                    console.log('signup error ::: ', err.response);
+                    this.setState({isFound: 'visible'});
+                });
             this.setState(initialInputs);
+        }
+    }
+
+    showModal() {
+        if(this.state.modalOpen) {
+            setTimeout(() => {
+                history.push('/login');
+            }, 3000);
+            return <Modal
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        open={this.state.modalOpen}
+                        onClose={this.handleModalClose}
+                    >
+                        <div className="modal-login">
+                            <h2>Welcome {this.state.firstName}, login your account pls! </h2>
+                        </div>
+                    </Modal>;
         }
     }
 
@@ -132,6 +171,9 @@ class SignUpForm extends Component {
                 /><br /><br />
                 <Button variant="contained" type="submit" color="primary" size="large">Sign Up</Button>
                 <p style={{marginTop: "15px"}}>Do you have an account !? <Link to="/login">Log in here</Link></p>
+
+                <div className="usernotfound" style={{visibility: this.state.isFound}}>This user is found! try another username and email</div>
+                {this.showModal()}
             </form>
          );
     }

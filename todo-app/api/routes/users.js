@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/signup', (req, res, next) => {
     const {error} = validateEntries(req.body, 'signup');
     if(error) return res.status(400).json({errorMessage: error.details[0].message});
-    findData(req.body.username)
+    findDataForSignup(req.body.userName, req.body.email)
      .then(data => {
         if(data.length >= 1) {
             return res.status(409).json({Oeps: 'This user is already existed'});
@@ -35,7 +35,7 @@ router.post('/signup', (req, res, next) => {
                             message: 'A new user added !',
                             user: {
                                 userId: uuidv4(),
-                                username: req.body.username,
+                                username: req.body.userName,
                                 password: hash
                             }
                         }
@@ -74,6 +74,17 @@ router.post('/login', (req, res, next) => {
      })
      .catch(err => res.status(500).json({error: err}));
 });
+
+// retrieve data to check for signup form
+function findDataForSignup(username, email) {
+    return new Promise ((resolve, reject) => {
+        const query = "SELECT * FROM users WHERE username =? OR email=?";
+        db.query(query, [username, email], (err, results, fields) => {
+            if(!err) resolve(results);
+            else reject(err);
+        });
+    });
+}
 
 // retrieve data to check
 function findData(usernameOrEmail) {

@@ -18,14 +18,13 @@ class Todos extends Component {
         const jwt = localStorage.getItem('my-jwt');
         axios.get(`/api/todos`, {headers: {Authorization: `Bearer ${jwt}`}})
             .then(res => {
-                //console.log(res.data);
                 this.setState({
                     isLoaded: true,
                     items: res.data     
                 });
             }).catch(err => {
                 localStorage.removeItem('my-jwt');
-                console.log('auth error ::: ', err.response);
+                console.log('auth error :::', err.response);
                 history.push('/login');
             });
     }
@@ -103,10 +102,10 @@ class Todos extends Component {
         if(!this.state.isLoaded) return <div>Loading ...</div>;
         else {
             return ( 
-                <div>
+                <div className="app-content">
                     <AddNewForm addNewElement={this.addNewElement} /><br />
                     <Grid container direction="row" justify="center" alignItems="center">
-                        <Grid item xs={8}>
+                        <Grid item xs={12}>
                             {this.showTodoLists()}
                         </Grid>
                     </Grid>
@@ -119,11 +118,16 @@ class Todos extends Component {
         const items = this.state.items;
         if(!Array.isArray(items)) return <Paper>{items[Object.keys(items)[0]]}</Paper>;
         else if(Array.isArray(items)) {
-            return items.map((el, index) => <Element key={index} 
+            if(items.length < 1) {
+                return <div>There are no items yest, please add what you want</div>;
+            }
+            else {
+                return items.map((el, index) => <Element key={index} 
                                             task={el.task} done={el.done}
                                             id={el.id} changeDoneTask={this.changeDoneTask}
                                             changeTaskText={this.changeTaskText}
                                             deleteElement={this.deleteElement} />);
+            }
         }
     }
 }

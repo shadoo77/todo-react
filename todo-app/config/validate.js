@@ -3,6 +3,7 @@
 const Joi = require('joi');
 
 function validateEntries(something, url) {
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     const objectArray = Object.keys(something);
     const result = objectArray.includes('task');
     if(!result && url === 'signup') {
@@ -11,20 +12,20 @@ function validateEntries(something, url) {
             lastName: Joi.string().alphanum().min(3).max(30).required(),
             userName: Joi.string().alphanum().min(3).max(30).required(),
             email: Joi.string().email({ minDomainAtoms: 2 }),
-            password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required()
+            password: Joi.string().regex(strongPasswordRegex).required()
         });
         return Joi.validate(something, schema);
     }else if(!result && url === 'login') {
         if (objectArray.includes('username')) {
             const schema = Joi.object().keys({
                 username: Joi.string().alphanum().min(3).max(30).required(),
-                password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required()
+                password: Joi.string().regex(strongPasswordRegex).required()
             });
             return Joi.validate(something, schema);
         } else if(objectArray.includes('email')) {
             const schema = Joi.object().keys({
                 email: Joi.string().email({ minDomainAtoms: 2 }),
-                password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required()
+                password: Joi.string().regex(strongPasswordRegex).required()
             });
             return Joi.validate(something, schema);
         }

@@ -45,7 +45,7 @@ class LoginForm extends Component {
             };
             axios.post('/api/login', userInfo)
                 .then(res => {
-                    this.setState({isFound: 'hidden'});
+                    this.setState({isFound: 'hidden', modalOpen: true});
                     localStorage.setItem('my-jwt', res.data.token);
                     history.push('/');
                 })
@@ -53,8 +53,7 @@ class LoginForm extends Component {
                     console.log('login error ::: ', err.response);
                     this.setState({isFound: 'visible'});
                 });
-            const initValues = {...initialInputs, modalOpen: true};
-            this.setState(initValues);
+            this.setState(initialInputs);
         }
     }
 
@@ -90,7 +89,7 @@ class LoginForm extends Component {
                 /><br /><br />
                 <Button variant="contained" type="submit" color="primary" size="large">Sign Up</Button>
                 <p style={{marginTop: "15px"}}>You don't have an account !? <Link to="/signup">Sign up here</Link></p>
-                <div style={{visibility: this.state.isFound}}>This user is not found!</div>
+                <div className="usernotfound" style={{visibility: this.state.isFound}}>This user is not found!</div>
                 <Modal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"

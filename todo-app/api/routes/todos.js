@@ -11,10 +11,10 @@ router.get('/', checkAuth, (req, res, next) => {
     console.log('hey shado ::: ', req.userData.userId);
     findData(req.userData.userId)
       .then(data => {
-          if(data.length < 1) return res.status(301).json({message: 'There are no items for this user yet!'});
-          else {
+          //if(data.length < 1) return res.status(301).json({message: 'There are no items for this user yet!'});
+          //else {
               return res.status(200).json(data);
-          }
+          //}
       })
       .catch(err => {
         res.status(500).json({error: err})

@@ -71,7 +71,7 @@ class Header extends Component {
     render() {
       const { classes } = this.props;
       const { value } = this.state;
-
+      const jwt = localStorage.getItem('my-jwt');
         return ( 
           <React.Fragment>
         
@@ -91,11 +91,13 @@ class Header extends Component {
                     </Tabs>
                     
                     <Typography variant="h5" className={classes.grow} />
+                  { jwt ? 
                   <Button color="inherit" size="medium" 
                     className={classes.logoutButton}
                     onClick={this.logOut}>
                     Logout
-                  </Button>
+                  </Button> : null
+                  }
                 </Toolbar>
               </AppBar>
             </div>

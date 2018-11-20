@@ -41,9 +41,9 @@ class AddNewForm extends Component {
 
     render() { 
         return ( 
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className="addnew-item">
                 <TextField
-                    style={{width: '50%'}}
+                    style={{width: '100%'}}
                     required
                     name="item"
                     id="new_item"
